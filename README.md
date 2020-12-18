@@ -1,2 +1,2 @@
 
-![](DemoGif.mp4)
+![](DemoGif.gif)
