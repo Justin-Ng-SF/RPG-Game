@@ -20,7 +20,8 @@ public abstract class Creature extends Entity {
 	
 	
 	public Creature(Handler handler,float x, float y, int width, int height) {
-		super(handler, x, y, width, height);//super refers to Entity class
+		//super refers to Entity class
+		super(handler, x, y, width, height);
 		// TODO Auto-generated constructor stub
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
@@ -38,26 +39,32 @@ public abstract class Creature extends Entity {
 	
 	
 	public void moveX() {
-		if(xMove > 0){//moving right
+		//moving right
+		if(xMove > 0){
 			
 			int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
-			
-			if(!collisionWithTile(tx, (int) (y + bounds.y)/ Tile.TILE_HEIGHT ) &&//checks bottom right and top right pixels
-					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {//if no solid tile, if collision tile is false, move
+			//checks bottom right and top right pixels
+			if(!collisionWithTile(tx, (int) (y + bounds.y)/ Tile.TILE_HEIGHT ) &&
+			//if no solid tile, if collision tile is false, move
+					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
 				x += xMove;
 			}else {
-				x = tx * Tile.TILE_WIDTH - bounds.x - bounds.width - 1;//set x position of creature to convert to pixel coordinates
+				//set x position of creature to convert to pixel coordinates
+				x = tx * Tile.TILE_WIDTH - bounds.x - bounds.width - 1;
 				//helps go closer up to a tile that we colide with
 			}
-			
-		}else if(xMove < 0) {//moving left
+
+			//moving left
+		}else if(xMove < 0) {
 			int tx = (int) (x + xMove + bounds.x) / Tile.TILE_WIDTH;
 			
 			if(!collisionWithTile(tx, (int) (y + bounds.y)/ Tile.TILE_HEIGHT ) &&
-					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {//if no solid tile, if collision tile is false, move
+			//if no solid tile, if collision tile is false, move
+					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
 				x += xMove;
 			} else {
-				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH - bounds.x;//set x position of creature to convert to pixel coordinates
+				//set x position of creature to convert to pixel coordinates
+				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH - bounds.x;
 				//helps go closer up to a tile that we colide with
 			}
 		}
@@ -66,31 +73,37 @@ public abstract class Creature extends Entity {
 	
 	
 	public void moveY() {
-		if(yMove < 0) {//moving up
+		//moving up
+		if(yMove < 0) {
 			int ty = (int) (y + yMove + bounds.y)/ Tile.TILE_HEIGHT;
 
 			if(!collisionWithTile((int) (x + bounds.x)/ Tile.TILE_WIDTH,  ty) &&
-					!collisionWithTile((int) (x + bounds.x + bounds.width)/ Tile.TILE_WIDTH,  ty)) {//collision check
+			//collision check
+					!collisionWithTile((int) (x + bounds.x + bounds.width)/ Tile.TILE_WIDTH,  ty)) {
 				y += yMove;
 			} else {
-				y = ty * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - bounds.y;//set x position of creature to convert to pixel coordinates
+				//set x position of creature to convert to pixel coordinates
+				y = ty * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - bounds.y;
 				//helps go closer up to a tile that we colide with
 			}
 		}else if(yMove > 0) {//moving down
 			int ty = (int) (y + yMove + bounds.y + bounds.height)/ Tile.TILE_HEIGHT;
 
 			if(!collisionWithTile((int) (x + bounds.x)/ Tile.TILE_WIDTH,  ty) &&
-					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILE_WIDTH,  ty)) {//collision check
+			//collision check
+					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILE_WIDTH,  ty)) {
 				y += yMove;
 			} else {
-				y = ty * Tile.TILE_HEIGHT - bounds.y - bounds.height - 1;//set x position of creature to convert to pixel coordinates
+				//set x position of creature to convert to pixel coordinates
+				y = ty * Tile.TILE_HEIGHT - bounds.y - bounds.height - 1;
 				//helps go closer up to a tile that we colide with
 			}
 		}
 
 	}
 	
-	protected boolean collisionWithTile(int x, int y) {//takes in a tile coordinate to check if it is solid
+	//takes in a tile coordinate to check if it is solid
+	protected boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 	//getters/setters allows us to use outside of class

@@ -19,8 +19,8 @@ public class GameState extends State{
 	
 	public GameState(Handler handler) {
 		super(handler);
-
-		world = new World(handler, "resources/worlds/world1.txt");//reads in worlds1.txt 
+		//reads in worlds1.txt 	
+		world = new World(handler, "resources/worlds/world1.txt");
 		handler.setWorld(world);
 		
 
@@ -32,13 +32,13 @@ public class GameState extends State{
 		world.tick();
 
 	}
-
+	//most used game state, where actual gameplay is at
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		world.rendor(g);
 
-	}//most used game state, where actual gameplay is at
+	}
 	
 	
 	

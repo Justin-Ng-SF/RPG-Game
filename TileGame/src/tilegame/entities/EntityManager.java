@@ -6,14 +6,15 @@ import java.util.Comparator;
 
 import tilegame.Handler;
 import tilegame.entities.creatures.Player;
-
-public class EntityManager {//managers entities
+//managers entities
+public class EntityManager {
 	
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
 	
-	private Comparator<Entity> renderSorter = new Comparator<Entity>() {//render order
+	//render order
+	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 		@Override
 		public int compare(Entity a, Entity b) {
 			if(a.getY() + a.getHeight() < b.getY() + b.getHeight()) //		
@@ -26,21 +27,27 @@ public class EntityManager {//managers entities
 	public EntityManager(Handler handler, Player player) {
 		this.handler = handler;
 		this.player = player;
-		entities = new ArrayList<Entity>();//list of entities
+		//list of entities
+		entities = new ArrayList<Entity>();
 		addEntity(player);
 	}
 	
 	
 	public void tick() {
-		for(int i = 0; i < entities.size(); i++) {//itterates through entities
-			Entity e = entities.get(i);//gets the entity at i
-			e.tick();//ticks the entity
+		//itterates through entities
+		for(int i = 0; i < entities.size(); i++) {
+			//gets the entity at i
+			Entity e = entities.get(i);
+			//ticks the entity
+			e.tick();
 		}
-			entities.sort(renderSorter);//for render order
+		//for render order
+			entities.sort(renderSorter);
 	}
 	
 	public void render(Graphics g) {
-		for(Entity e : entities) {//creates an Entity e, and does it for each entity in array list Entity
+		//creates an Entity e, and does it for each entity in array list Entity
+		for(Entity e : entities) {
 			e.render(g);
 		}
 	
@@ -49,7 +56,8 @@ public class EntityManager {//managers entities
 
 
 	public void addEntity(Entity e) {
-		entities.add(e);//adds entity to array list
+		//adds entity to array list
+		entities.add(e);
 	}
 	
 	

@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
-
-	private boolean[] keys;//storing if our keys are being pressed or not
+//storing if our keys are being pressed or not
+	private boolean[] keys;
 	public boolean up, down, left, right;
 	
 	public KeyManager() {
@@ -13,21 +13,24 @@ public class KeyManager implements KeyListener {
 	}
 	
 	public void tick() {
-		up = keys[KeyEvent.VK_UP];//up arrow key
+		//up arrow key
+		up = keys[KeyEvent.VK_UP];
 		down = keys[KeyEvent.VK_DOWN];
 		left = keys[KeyEvent.VK_LEFT];
 		right = keys[KeyEvent.VK_RIGHT];
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {//sets key to true if being pressed down
+	public void keyPressed(KeyEvent e) {
+		//sets key to true if being pressed down
 		// TODO Auto-generated method stub
 		keys[e.getKeyCode()] = true;
 		System.out.println("Pressed!");
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {//sets key to false if released
+	public void keyReleased(KeyEvent e) {
+		//sets key to false if released
 		// TODO Auto-generated method stub
 		keys[e.getKeyCode()] = false;
 	}

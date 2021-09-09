@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 //load images
 public class ImageLoader {
-
-	public static BufferedImage loadImage(String path) {//path is name of image and where it is located
+//path is name of image and where it is located
+	public static BufferedImage loadImage(String path) {
 		
 		try {
 			return ImageIO.read(ImageLoader.class.getResource(path));
@@ -16,8 +16,8 @@ public class ImageLoader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(1);
-		}//loads path
-		return null;//gets rid of error
+		}
+		return null;
 	}
 	
 	

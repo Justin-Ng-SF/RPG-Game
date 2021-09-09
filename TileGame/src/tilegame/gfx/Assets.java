@@ -10,12 +10,14 @@ public class Assets {
 	public static BufferedImage grass, water, tree, rock, player;
 	
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
-
-	public static void init() {//loads everything into game, should be called only once
-		SpriteSheet tileSprite = new SpriteSheet(ImageLoader.loadImage("/textures/tileSprite.png"));//images from sprite.png on resources
+//loads everything into game, should be called only once
+	public static void init() {
+		//images from sprite.png on resources
+		SpriteSheet tileSprite = new SpriteSheet(ImageLoader.loadImage("/textures/tileSprite.png"));
 		SpriteSheet playerSprite = new SpriteSheet(ImageLoader.loadImage("/textures/playerSprite.png"));
 		
-		player_down = new BufferedImage[2];//represents the movement and how many different frames represent this movement
+		//represents the movement and how many different frames represent this movement
+		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
 		player_left = new BufferedImage[2];
 		player_right = new BufferedImage[2];

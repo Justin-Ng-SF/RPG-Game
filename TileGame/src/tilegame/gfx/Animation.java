@@ -3,10 +3,11 @@ package tilegame.gfx;
 import java.awt.image.BufferedImage;
 
 public class Animation {
-
-	private int speed, index;//speed of animation
+	//speed of animation
+	private int speed, index;
 	private long lastTime, timer;
-	private BufferedImage[] frames;//frames we want to rotate through
+	//frames we want to rotate through
+	private BufferedImage[] frames;
 	
 	public Animation(int speed, BufferedImage[] frames) {
 		this.speed = speed;
@@ -15,16 +16,20 @@ public class Animation {
 		lastTime = System.currentTimeMillis();
 	}
 	
-	public void tick() {//ticks everytime we call the game
-		timer += System.currentTimeMillis() - lastTime;//time passed since tick method has been called from the other tick
+	//ticks everytime we call the game
+	public void tick() {
+		//time passed since tick method has been called from the other tick
+		timer += System.currentTimeMillis() - lastTime;
 		lastTime = System.currentTimeMillis();
 		
 		if(timer > speed) {
 			index++;
-			timer = 0;//resets animation
+			//resets animation
+			timer = 0;
 			
 			if(index >= frames.length) {
-				index = 0;//resets animation
+				//resets animation
+				index = 0;
 			}
 		}
 		

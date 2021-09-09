@@ -9,8 +9,9 @@ import tilegame.Handler;
 public abstract class Entity {
 	
 	protected Handler handler;
-	protected float x, y;//private variable, but classes that extend this can use it
-						//use float so it is more smooth
+	//private variable, but classes that extend this can use it
+	//use float so it is more smooth
+	protected float x, y;
 	protected int width, height;//used for dimensions of entity
 	
 	protected Rectangle bounds;
@@ -21,8 +22,8 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		
-		bounds = new Rectangle(0, 0, width, height);//for hitbox, aka bounds of entity
+		//for hitbox, aka bounds of entity
+		bounds = new Rectangle(0, 0, width, height);
 	}
 	
 
@@ -30,14 +31,17 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g);
 	
-	public boolean checkEntityCollisions(float xOffset, float yOffset) {//tests each entity to see if it collides with entity
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {//get list of entitties and loop through it
+	//tests each entity to see if it collides with entity
+	public boolean checkEntityCollisions(float xOffset, float yOffset) {
+		//get list of entitties and loop through it
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this))//makes sure it does not check against itself
 				continue;
 			if(e.getCollisionBounds(0f,  0f).intersects(getCollisionBounds(xOffset, yOffset)))
-				return true;//if two rectancles overlap, return true
+			//if two rectancles overlap, return true
+				return true;
 		}
-		return false;//else
+		return false;
 	}
 	
 	public Rectangle getCollisionBounds(float xOffset, float yOffset) {

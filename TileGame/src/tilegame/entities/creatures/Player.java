@@ -17,12 +17,13 @@ public class Player extends Creature {
 	private Animation animLeft;
 	private Animation animRight;
 	
-	public Player(Handler handler, float x, float y) {//x and y is location, game is used so we can access game class
+	//x and y is location, game is used so we can access game class
+	public Player(Handler handler, float x, float y) {
 		// TODO Auto-generated constructor stub
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		//half of what you expect
-		bounds.x = 17;//half of what you expect
+		bounds.x = 17;
 		bounds.y = 24;
 		bounds.width = 16;
 		bounds.height = 26;
@@ -48,7 +49,8 @@ public class Player extends Creature {
 	}
 
 	private void getInput() {
-		xMove = 0;//from creature class
+		//from creature class
+		xMove = 0;
 		yMove = 0;
 		
 		if(handler.getKeyManager().up)
@@ -66,8 +68,9 @@ public class Player extends Creature {
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
+		//must convert float x to int x
 		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), 
-				width, height, null);//must convert float x to int x
+				width, height, null);
 		
 		
 		

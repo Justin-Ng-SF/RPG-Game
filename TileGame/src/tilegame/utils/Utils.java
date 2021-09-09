@@ -7,28 +7,35 @@ import java.io.IOException;
 public class Utils {//contains helper functions to help load game
 
 	public static String loadFileAsString(String path) {
-		StringBuilder builder = new StringBuilder();//allows to add characters to string
+		//allows to add characters to string
+		StringBuilder builder = new StringBuilder();
 		
-		try {//need for errors
+		try {
+			//need for errors
 			BufferedReader br = new BufferedReader(new FileReader(path));//reads in file
-			String line;//line we are currently working on
+			//line we are currently working on
+			String line;
 			
-			while((line = br.readLine()) != null) //reads next line of file as long as it exists
-				builder.append(line + "\n");//everytime after reading a line, go to next line
+			//reads next line of file as long as it exists
+			while((line = br.readLine()) != null) 
+			//everytime after reading a line, go to next line
+				builder.append(line + "\n");
 				
-				br.close();//closes file screen
+				
+				br.close();
 			
 			
 			
 		}catch(IOException e) {
-			e.printStackTrace();//prints error to system
+			//prints error to system
+			e.printStackTrace();
 		}
 		
 		
 		
 		
-		
-		return builder.toString();//returns file we just loaded, converting everything we appended to builder object into a string
+		//returns file we just loaded, converting everything we appended to builder object into a string
+		return builder.toString();
 	}
 	
 	public static int parseInt(String number) {
@@ -38,7 +45,8 @@ public class Utils {//contains helper functions to help load game
 			return Integer.parseInt(number);
 						
 		}catch(NumberFormatException e) {
-			e.printStackTrace();//if you try passing a string that is not a number, print error to screen
+			//if you try passing a string that is not a number, print error to screen
+			e.printStackTrace();
 			return 0;
 		}
 		

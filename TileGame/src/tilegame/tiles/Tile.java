@@ -7,7 +7,8 @@ public class Tile {
 	
 	//static stuff======v
 	public static Tile[] tiles = new Tile[256];
-	public static Tile grassTile = new GrassTile(0);//id of 0 will now refer to the grass tile now
+	//id of 0 will now refer to the grass tile now
+	public static Tile grassTile = new GrassTile(0);
 	public static Tile waterTile = new WaterTile(1);
 	public static Tile treeTile = new TreeTile(2);
 	public static Tile rockTile = new RockTile(3);

@@ -16,18 +16,20 @@ import tilegame.states.MenuState;
 import tilegame.states.SettingState;
 import tilegame.states.State;
 
-
-public class Game implements Runnable {//implements runnable allows Game class to run on a thread, needs run method
+//implements runnable allows Game class to run on a thread, needs run method
+public class Game implements Runnable {
 	
 	private Display display;
 	private int width, height;
 	public String title;
 	
 	private boolean running = false;
-	private Thread thread;//thread that we can run on, thread is a mini program, can run a class seperately from program
+	//thread that we can run on, thread is a mini program, can run a class seperately from program
+	private Thread thread;
 	//helps with efficiency
 	
-	private BufferStrategy bs;//way for cpu to draw things to screen, using buffers
+	//way for cpu to draw things to screen, using buffers
+	private BufferStrategy bs;
 	private Graphics g;
 	
 	//states
@@ -61,93 +63,126 @@ public class Game implements Runnable {//implements runnable allows Game class t
 	
 	private void init() {//initalizer
 		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keyManager);//allows us to access keyboard by passing to keyManager
+		//allows us to access keyboard by passing to keyManager
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();//initalizes assets, aka images,sound,audio
 		//test = ImageLoader.loadImage("/textures/sprite.png");
 		//sheet = new SpriteSheet(test);
 		
 		handler = new Handler(this);
 		
-		gameCamera = new GameCamera(handler, 0, 0);//this is for the Game object, aka this Game class
+		//this is for the Game object, aka this Game class
+		gameCamera = new GameCamera(handler, 0, 0);
 		
-		gameState = new GameState(handler);//changing from type state to gamestate, this is important
-									//bc it lets it use the game state manager part in the State class
-									//lets us declare it as a State but initialize it to w/e we want
+		//changing from type state to gamestate, this is important
+		//bc it lets it use the game state manager part in the State class
+		//lets us declare it as a State but initialize it to w/e we want
+		gameState = new GameState(handler);
+
 		menuState = new MenuState(handler);
 		settingState = new SettingState(handler);
 		
 		
-		State.setState(gameState);//sents current state of game to gamestate that we just created
+		//sents current state of game to gamestate that we just created
+		State.setState(gameState);
 	}
 	
-
-	private void tick() {//updates all variables, i.e  positions of objects, etc---game loop
+	//updates all variables, i.e  positions of objects, etc---game loop
+	private void tick() {
 		keyManager.tick();
-		if(State.getState() != null)//if state class exists, 
-			State.getState().tick();//calls tick method of current state
-									//used in render method as well
+		//if state class exists, 
+		if(State.getState() != null)
+		//calls tick method of current state
+		
+			State.getState().tick();
+									
 	}
-	
-	private void render() {//rendors(draw) everything to screen---game loop
+	//rendors(draw) everything to screen---game loop
+	private void render() {
 		bs = display.getCanvas().getBufferStrategy();
 		
 		if(bs==null) {
-			display.getCanvas().createBufferStrategy(3);//if there is no buffer strat, create 3 buffers
+			//if there is no buffer strat, create 3 buffers
+			display.getCanvas().createBufferStrategy(3);
 			return;//if we dont return we get errors
 		}
-		g = bs.getDrawGraphics();//g is essentially the paintbrush, allows to draw to screen
+		//g is essentially the paintbrush, allows to draw to screen
+		g = bs.getDrawGraphics();
 		
 		//before drawing, clear screen 
-		g.clearRect(0, 0, width, height);//clears everything within bounds of width and height
+		//clears everything within bounds of width and height
+		g.clearRect(0, 0, width, height);
 		//draw here--v
 		
-		if(State.getState() != null)//if state class exists
-			State.getState().render(g);//calls rendor method of current state
+		//if state class exists
+		if(State.getState() != null)
+		//calls rendor method of current state
+			State.getState().render(g);
 		
 		//end drawing--^
-		bs.show();//tells code that it is done drawing and shows
-		g.dispose();//makes sure graphics object is done w/ properly
+		//tells code that it is done drawing and shows
+		bs.show();
+		//makes sure graphics object is done w/ properly
+		g.dispose();
 		
 	}
 	
-	public void run() {//when using impements runnable, you need a run method inside the class
+	//when using impements runnable, you need a run method inside the class
+	public void run() {
 		//majority of where our game code goes
 		init();
 		
 		//for tick method//limits all comp to run at this speed regardless of how good===========================v
 		int fps = 60;
-		double timePerTick = 1000000000/fps;//1000000000 = 1billion nano sec = 1 second
-		double delta = 0;//amt of time we have until we need to call tick/render method
-		long now;//current time of comp
-		long lastTime = System.nanoTime();//returns amt of time in nano secs that comp is running at, i.e. returns the time of our internal cpu clock
-		long timer = 0;//time until we hit 1 second
-		int ticks = 0;//once hit 1 second,shows how many times tick and render method is called
+		//1000000000 = 1billion nano sec = 1 second
+		double timePerTick = 1000000000/fps;
+		//amt of time we have until we need to call tick/render method
+		double delta = 0;
+		//current time of comp
+		long now;
+		//returns amt of time in nano secs that comp is running at, i.e. returns the time of our internal cpu clock
+		long lastTime = System.nanoTime();
+		//time until we hit 1 second
+		long timer = 0;
+		//once hit 1 second,shows how many times tick and render method is called
+		int ticks = 0;
 		//===========================================^
 		
 		while(running) {
 			//for tick method===============================================v
 			now = System.nanoTime();//tick
-			delta += (now-lastTime) / timePerTick; // (amt of time passed since last called this line) / amt of maximum time allowed to have tic and render method
-													//tells comp when and when to not call tick/render method
-			timer += now -lastTime;//amt of time since we last ran this block of code
+			// (amt of time passed since last called this line) / amt of maximum time allowed to have tic and render method
+			//tells comp when and when to not call tick/render method
+			delta += (now-lastTime) / timePerTick; 
+													
+			//amt of time since we last ran this block of code
+			timer += now -lastTime;
 			lastTime = now;
 			//============================================================^
 			
-			if(delta >=1 ) {//<====helps to show how many times tick/rendor method is used
+
+			//helps to show how many times tick/rendor method is used
+			if(delta >=1 ) {
 				tick();
 				render();
-				ticks++;//<====for ticks method
-				delta--;//<===for ticks method
+				//for ticks method
+				ticks++;
+				//for ticks method
+				delta--;
 			}
 			
-			if(timer>= 1000000000) {//checks to see if timer exceeds 1 second, after 1 second it shows how many ticks occured in 1 second, shows tics and frames every second
+			//checks to see if timer exceeds 1 second, 
+			//after 1 second it shows how many ticks occured in 1 second, 
+			//shows tics and frames every second
+			if(timer>= 1000000000) {
 				System.out.println("Ticks and Frames: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}
 		}
 	
-		stop();//runs stop if not already stopped
+		//runs stop if not already stopped
+		stop();
 	}
 	
 	public KeyManager getKeyManager() {
@@ -168,24 +203,31 @@ public class Game implements Runnable {//implements runnable allows Game class t
 		return height;
 	}
 	
-	public synchronized void start() {//synchornized keyword is when we work with threads directly, 
+	//synchornized keyword is when we work with threads directly, 
 										//so nothing gets messed up in process
 										//i.e when using start/stop
+	public synchronized void start() {
 		if(running)
 			return;
 		running = true;
-		thread = new Thread(this);//thread constructor takes in class we want to run, 
-									//i.e the Game class, 'this' refers to our Game class
-									//initalizes thread w/ new thread
-		thread.start();//calls the run method
+
+		//thread constructor takes in class we want to run, 
+		//i.e the Game class, 'this' refers to our Game class
+		//initalizes thread w/ new thread
+		thread = new Thread(this);
+
+		//calls the run method
+		thread.start();
 	}
 	
-	public synchronized void stop() {//stops thread
+	//stops thread
+	public synchronized void stop() {
 		if(!running)
 			return;
 		running = false;
 		try {
-			thread.join();//stops thread safely
+			//stops thread safely
+			thread.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
